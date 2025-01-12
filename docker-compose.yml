@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+    volumes:
+      - ./web/staticfiles:/app/staticfiles
+    ports:
+      - "8000:8000"
+    # env_file:
+    #   - ./web/.env
+    environment:
+       DJANGO_SECRET_KEY: "django-insecure-_p_(3(av(sdvwf-wv5j0ns1b+yqe780z3t56*1oq9@!r@_x$v7"
+       ALLOWED_HOSTS: "['kubernetes-django.com', 'localhost']"
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: django_user
+      POSTGRES_PASSWORD: django_password
+      POSTGRES_DB: django_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  staticfiles:
+    # external: true
+  postgres_data:
+    
