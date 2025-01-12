@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: django-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/pazongage/kubernetes-django.git
+    targetRevision: HEAD  # You can specify a branch or commit here
+    path: k8s-helm  # Path to your Helm chart inside the Git repository
+    helm:
+      valueFiles:
+        - values.yaml  # (Optional) Specify the values.yaml file, if needed
+  destination:
+    server: https://kubernetes.default.svc  # This is the default Kubernetes cluster within Argo CD
+    namespace: default  # The Kubernetes namespace where you want to deploy
+  syncPolicy:
+    automated:
+      prune: true  # Automatically remove resources not defined in Git
+      selfHeal: true  # Automatically fix drifted resources
