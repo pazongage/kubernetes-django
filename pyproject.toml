@@ -1,9 +1,9 @@
-#[tool.poetry]
-#name = "kubernetes-django"
-#version = "0.1.0"
-#description = ""
-#authors = ["Oussama elamraoui"]
-
+[tool.poetry]
+name = "kubernetes-django"
+version = "0.1.0"
+description = ""
+authors = ["Oussama elamraoui"]
+readme = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
